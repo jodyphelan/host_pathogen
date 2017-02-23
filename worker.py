@@ -1,7 +1,6 @@
 #! /home/jody/software/anaconda2/bin/python
 from __future__ import division
 import sys
-import array
 import tools
 from collections import defaultdict 
 

@@ -4,7 +4,11 @@ import sys
 import subprocess
 import os
 
-print sys.argv
+
+if len(sys.argv)!=5:
+	print "<host-pathogen.py <host_bfile> <path_matrix> <out_prefix> <threads>"
+	quit()
+
 script,h_prefix,p_mat,outfile,threads = sys.argv
 
 scriptDir = os.path.dirname(os.path.realpath(__file__))
