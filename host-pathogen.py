@@ -36,6 +36,6 @@ with open("xargs.txt","w") as o:
 
 subprocess.call("cat xargs.txt | xargs -n6 -P%s %s/worker.py" % (threads,scriptDir),shell=True)
 
-subprocess.call("cat `ls %s.temp*` | pigz -p 20 -c > %s.results.gz" %(outfile,outfile),shell=True)
+subprocess.call("cat `ls %s.temp*` > %s.results.gz" %(outfile,outfile),shell=True)
 subprocess.call("cat %s.combin* | awk '{sum += $1} END {print sum}' > %s.numtests.txt" % (outfile,outfile),shell=True)
 subprocess.call("rm %s.combin* %s.temp*" % (outfile,outfile),shell=True)
