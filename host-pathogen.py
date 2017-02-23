@@ -38,4 +38,4 @@ subprocess.call("cat xargs.txt | xargs -n6 -P%s %s/worker.py" % (threads,scriptD
 
 subprocess.call("cat `ls %s.temp*` > %s.results" %(outfile,outfile),shell=True)
 subprocess.call("cat %s.combin* | awk '{sum += $1} END {print sum}' > %s.combinations.txt" % (outfile,outfile),shell=True)
-subprocess.call("rm %s.combin* %s.temp*" % (outfile,outfile),shell=True)
+#subprocess.call("rm %s.combin* %s.temp*" % (outfile,outfile),shell=True)
