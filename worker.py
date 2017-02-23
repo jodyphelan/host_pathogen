@@ -51,8 +51,8 @@ for h_chrom in h_dict:
 			for p_pos in p_dict[p_chrom]:
 
 				tab = tools.create_table(p_dict[p_chrom][p_pos],h_dict[h_chrom][h_id])
-				pval = tools.chisq(tab)
-				if pval<0.05:
-					out.write("%s:%s-%s:%s\t%s\t%s\t%s\t%s\t%s\t%s\n" % (h_chrom,h_id,p_chrom,p_pos,tab[0][0],tab[1][0],tab[0][1],tab[1][1],tab[0][2],tab[1][2]))
+#				pval = tools.chisq(tab)
+#				if pval<0.05:
+				out.write("%s:%s-%s:%s\t%s\t%s\t%s\t%s\t%s\t%s\n" % (h_chrom,h_id,p_chrom,p_pos,tab[0][0],tab[1][0],tab[0][1],tab[1][1],tab[0][2],tab[1][2]))
 out.close()
 print "Thread %s finished" % pid

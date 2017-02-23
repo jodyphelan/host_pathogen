@@ -6,7 +6,7 @@ import os
 
 
 if len(sys.argv)!=5:
-	print "<host-pathogen.py <host_bfile> <path_matrix> <out_prefix> <threads>"
+	print "host-pathogen.py <host_bfile> <path_matrix> <out_prefix> <threads>"
 	quit()
 
 script,h_prefix,p_mat,outfile,threads = sys.argv
