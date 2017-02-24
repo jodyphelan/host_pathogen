@@ -45,7 +45,7 @@ for h_chrom in h_dict:
 		h_snps+=1
 open(outfile+".combinations."+pid,"w").write("%s\n" % (p_snps*h_snps))
 
-with gzip.open(outfile+".temp"+pid+".gz","wb") as o:
+with gzip.open(outfile+".temp"+pid+".gz","wb") as out:
 	for h_chrom in h_dict:
 		print "Starting thread %s" % pid
 		for h_id in h_dict[h_chrom]:
