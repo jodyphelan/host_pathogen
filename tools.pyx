@@ -62,3 +62,26 @@ cpdef str recode_plink(char s[]):
 		elif s[j]=="2" and s[j+1]=="2":
 			arr[i] = "2"
 	return arr.tostring()
+
+def tab2lists(arr):
+	x = []
+	y = []
+	for i in range(int(arr[5])):
+		x.append(0)
+		y.append(0)
+	for i in range(int(arr[6])):
+		x.append(0)
+		y.append(1)
+	for i in range(int(arr[7])):
+		x.append(1)
+		y.append(0)
+	for i in range(int(arr[8])):
+		x.append(1)
+		y.append(1)
+	for i in range(int(arr[9])):
+		x.append(2)
+		y.append(0)
+	for i in range(int(arr[10])):
+		x.append(2)
+		y.append(1)
+	return x,y
