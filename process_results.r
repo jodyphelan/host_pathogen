@@ -24,7 +24,7 @@ perform_tests<-function(x,print_mat=F){
 	### heterozygous model ###
 	het_pval<-anova(glm(tb ~ I(hum==1),family="binomial"),test = "Chisq")[2,5]
 	### general model ###
-	gen_pval<-anova(glm(tb ~ as.factor(I(hum==1)),family="binomial"),test = "Chisq")[2,5]
+	gen_pval<-anova(glm(tb ~ as.factor(hum),family="binomial"),test = "Chisq")[2,5]
 	c(add_pval,dom_pval,rec_pval,het_pval,gen_pval)
 }
 
