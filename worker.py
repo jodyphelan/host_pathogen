@@ -5,7 +5,7 @@ import tools
 from collections import defaultdict 
 import gzip
 
-script,h_prefix,p_mat,outfile,pid,h_start_idx,h_stop_idx = sys.argv
+script,h_mat,p_mat,outfile,pid,h_start_idx,h_stop_idx = sys.argv
 
 
 p_dict = defaultdict(dict)
@@ -15,35 +15,19 @@ h_start_idx = int(h_start_idx)
 h_stop_idx = int(h_stop_idx)
 
 id2pos = {}
-with open(h_prefix+".tped") as f:
+with open(h_mat) as f:
 	for i,l in enumerate(f):
 		if i>=h_start_idx and i<=h_stop_idx:
 			temp = l.rstrip().split()
-			recoded = tools.recode_plink("".join(temp[4:]))
-			h_dict[temp[0]][temp[1]] = recoded
-			id2pos[temp[1]] = temp[3]
+			# expect vector with variant_id and calls [0,1,2,9] 9 is missing data
+			h_dict[temp[0]] = "".join(temp[1:])
 
 with open(p_mat) as f:
-	header = f.readline().rstrip().split()
-	idx = []
-	for x in h_samples:
-		idx.append(header.index(x))
 	for l in f:
 		temp = l.rstrip().split()
-		if tools.get_af("".join(temp[5:]))*len(temp[5:])<5:
-			continue
-		p_dict[temp[0]][temp[1]] = "".join(temp[5:])
+		p_dict[temp[0] = "".join(temp[1:])
 
 
-p_snps = 0
-for p_chrom in p_dict:
-	for p_pos in p_dict[p_chrom]:
-		p_snps+=1
-h_snps = 0
-for h_chrom in h_dict:
-	for h_id in h_dict[h_chrom]:
-		h_snps+=1
-open(outfile+".combinations."+pid,"w").write("%s\n" % (p_snps*h_snps))
 
 with gzip.open(outfile+".temp"+pid+".gz","wb") as out:
 	for h_chrom in h_dict:
