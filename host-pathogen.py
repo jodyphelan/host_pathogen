@@ -51,16 +51,17 @@ def reduce_tped(h_prefix,newfile,idxname,samples):
 		for j in sample_idx:
 			i = j*2 + 4
 
-			if arr[i]=="1" and arr[i+1]=="1":
+			if arr[i]=="0" and arr[i+1]=="0":
+				seqline.append("9")
+			elif  arr[i]=="1" and arr[i+1]=="1":
 				seqline.append("0")
 			elif  arr[i]=="1" and arr[i+1]=="2":
-				seqline.append("0.5")
-			elif  arr[i]=="2" and arr[i+1]=="1":
-				seqline.append("0.5")
-			elif arr[i]=="2" and arr[i+1]=="2":
 				seqline.append("1")
+			elif  arr[i]=="2" and arr[i+1]=="1":
+				seqline.append("1")
+			elif arr[i]=="2" and arr[i+1]=="2":
+				seqline.append("2")
 			else:
-				
 				print arr[i]
 				print arr[i+1]
 				print "ERROR!"
@@ -94,10 +95,8 @@ pathogen_idx = "%s.pathogen_idx.json" % (prefix)
 reduce_mat(p_mat,reduced_pathogen_mat,pathogen_idx,samples)
 reduce_tped(h_prefix,reduced_host_mat,host_idx,samples)
 
-quit()
 
-
-cmd = subprocess.Popen("wc -l %s" % new_host_mat,shell=True,stdout=subprocess.PIPE)
+cmd = subprocess.Popen("wc -l %s" % reduced_host_mat,shell=True,stdout=subprocess.PIPE)
 for l in cmd.stdout:
 	file_len = int(l.split()[0])
 
@@ -115,12 +114,10 @@ with open("xargs.txt","w") as o:
 			if j>file_len:
 				end==j
 				break
-		o.write(" %s %s %s %s %s %s" % (new_host_prefix,new_pathogen_mat,prefix,i,start,end))
+		o.write(" %s %s %s %s %s %s" % (reduced_host_mat,reduced_pathogen_mat,prefix,i,start,end))
 
 
 subprocess.call("cat xargs.txt | xargs -n6 -P%s %s/worker.py" % (threads,scriptDir),shell=True)
-
 subprocess.call("cat `ls %s.temp*` > %s.results.gz" %(prefix,prefix),shell=True)
-subprocess.call("cat %s.combin* | awk '{sum += $1} END {print sum}' > %s.numtests.txt" % (prefix,prefix),shell=True)
-subprocess.call("rm %s.combin* %s.temp*" % (prefix,prefix),shell=True)
+subprocess.call("rm %s.temp*" % (prefix),shell=True)
 
