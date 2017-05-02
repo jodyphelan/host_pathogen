@@ -6,7 +6,6 @@ import gzip
 
 genofile = sys.argv[1]
 prefix = sys.argv[2]
-af_cut = float(sys.argv[3])
 i=0
 j=0
 temp_name = "%s.%s.temp_stats.txt" % (prefix,j)
@@ -20,8 +19,5 @@ for l in tqdm(gzip.open(sys.argv[1],"rb")):
 		temp_name = "%s.%s.temp_stats.txt" % (prefix,j)
 		i=0
 		out = open(temp_geno,"w")
-	arr = l.rstrip().split()
-	af = (int(arr[6])+int(arr[8])+int(arr[10]))/sum([int(x) for x in arr[5:11]])
-	if af>af_cut:
-		out.write(l)
-		i+=1
+	i+=1
+	out.write(l)

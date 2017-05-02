@@ -41,11 +41,11 @@ clusterExport(cl, "perform_tests")
 
 # Read data
 dat<-as.data.frame(fread(infile))
-dat.mat<-as.matrix(dat[-c(1:5)])
+dat.mat<-as.matrix(dat[-c(1:2)])
 pvals<-t(parApply(cl,dat.mat,1,perform_tests))
 
 results<-cbind(dat,pvals)
-colnames(results)<-c("hum_chr","hum_pos","hum_id","tb_chr","tb_pos","a","b","c","d","e","f","add_pval","dom_pval","rec_pval","het_pval","gen_pval")
+colnames(results)<-c("host_id","pathogen_id","a","b","c","d","e","f","add_pval","dom_pval","rec_pval","het_pval","gen_pval")
 	
 min_pvals<-apply(pvals,1,min,na.rm=T)
 write.table(results[min_pvals<0.05,],outfile,quote=F,row.names=F,col.names=F)
