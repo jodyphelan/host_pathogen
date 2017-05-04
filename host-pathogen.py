@@ -24,7 +24,7 @@ def reduce_mat(filename,newfile,idxname,samples):
 		if l[0]=="#":
 			sample_idx = [arr.index(s) for s in samples]
 			continue
-		seqline = "\t".join([arr[i] for i in sample_idx])
+		seqline = "\t".join([arr[i] if arr[i]!="NA" else "N" for i in sample_idx])
 		reduced_mat[seqline].append(arr[:5])
 	cnt = 0
 	variant_ids = {}
@@ -116,7 +116,7 @@ with open("xargs.txt","w") as o:
 				break
 		o.write(" %s %s %s %s %s %s" % (reduced_host_mat,reduced_pathogen_mat,prefix,i,start,end))
 
-
+quit()
 subprocess.call("cat xargs.txt | xargs -n6 -P%s %s/worker.py" % (threads,scriptDir),shell=True)
 subprocess.call("cat `ls %s.temp*` > %s.results.gz" %(prefix,prefix),shell=True)
 subprocess.call("rm %s.temp*" % (prefix),shell=True)

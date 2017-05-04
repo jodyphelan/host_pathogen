@@ -21,3 +21,9 @@ for l in tqdm(gzip.open(sys.argv[1],"rb")):
 		out = open(temp_geno,"w")
 	i+=1
 	out.write(l)
+
+out.close()
+subprocess.call("Rscript process_results.r %s %s 20" % (temp_geno,temp_name),shell=True)
+
+subprocess.call("cat %s.*.temp_stats.txt > %s.stats.txt" % (prefix,prefix),shell=True)
+subprocess.call("rm %s.*.temp_stats.txt"% (prefix),shell=True)
