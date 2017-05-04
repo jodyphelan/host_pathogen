@@ -13,8 +13,6 @@ cpdef list create_table(char s1[],char s2[]):
 	cdef int zero_zero = 0
 	cdef int zero_two = 0
 	cdef int one_two = 0
-	print len(s1)
-	print len(s2)
 	for i in range(0,l):
 		if s1[i]=="0" and s2[i]=="0":
 			zero_zero+=1

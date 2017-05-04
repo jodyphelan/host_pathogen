@@ -116,7 +116,7 @@ with open("xargs.txt","w") as o:
 				break
 		o.write(" %s %s %s %s %s %s" % (reduced_host_mat,reduced_pathogen_mat,prefix,i,start,end))
 
-quit()
+
 subprocess.call("cat xargs.txt | xargs -n6 -P%s %s/worker.py" % (threads,scriptDir),shell=True)
 subprocess.call("cat `ls %s.temp*` > %s.results.gz" %(prefix,prefix),shell=True)
 subprocess.call("rm %s.temp*" % (prefix),shell=True)
