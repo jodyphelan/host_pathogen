@@ -47,6 +47,5 @@ pvals<-t(parApply(cl,dat.mat,1,perform_tests))
 results<-cbind(dat,pvals)
 colnames(results)<-c("host_id","pathogen_id","a","b","c","d","e","f","add_pval","dom_pval","rec_pval","het_pval","gen_pval")
 	
-min_pvals<-apply(pvals,1,min,na.rm=T)
 write.table(results,outfile,quote=F,row.names=F,col.names=F)
 
